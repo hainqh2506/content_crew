@@ -1,0 +1,108 @@
+content_ideation_task:
+  description: |
+    Tạo ra các ý tưởng nội dung mới, sáng tạo, phù hợp với thông tin được cung cấp từ người dùng.
+    Đề xuất ít nhất 3 ý tưởng bài viết dựa trên:
+      - Chủ đề: {content_info[topic]}
+      - Mục tiêu truyền thông: {content_info[communication_goal]}
+      - Đối tượng mục tiêu: {content_info[target_audience]}
+      - Thông tin thương hiệu: {content_info[brand_information]}
+      - Phong cách và giọng điệu: {content_info[style_and_tone]}
+    Kết hợp xu hướng hiện tại (dựa trên {current_date}) và nhu cầu của đối tượng mục tiêu để đảm bảo ý tưởng phù hợp và thu hút.
+    Kết hợp thêm yêu cầu từ người dùng nếu cần.
+    Yêu cầu từ người dùng: {message}
+  expected_output: |
+    Một danh sách các ý tưởng nội dung, mỗi ý tưởng có:
+      - title: Tiêu đề ý tưởng
+      - description: Mô tả ngắn gọn về ý tưởng
+      - content_type: Loại nội dung (bài viết, hình ảnh, video, v.v.)
+      - reason: Lý do ý tưởng phù hợp với mục tiêu và đối tượng
+  verbose: True
+research_task:
+  description: |
+    Thực hiện nghiên cứu chuyên sâu cho ý tưởng nội dung đã chọn:
+      - Chủ đề: {content_info[topic]}
+      - Ý tưởng đã chọn: {selected_idea[title]}
+      - Loại nội dung: {selected_idea[content_type]}
+      - Mô tả ý tưởng: {selected_idea[description]}
+    Đây là các ý tưởng cần khác có thể tham khảo thực hiện thêm:
+      - {ideas}
+    Nghiên cứu nên bao gồm:
+      1. Xác định từ khóa liên quan đến chủ đề (ít nhất 10 từ khóa)
+      2. Phân tích nội dung tương tự từ ít nhất 3 đối thủ cạnh tranh
+      3. Tìm hiểu 5-7 xu hướng hiện tại liên quan đến chủ đề (dựa trên {current_date})
+      4. Thu thập các dữ liệu quan trọng, số liệu thống kê và thông tin cụ thể về chủ đề
+      5. Xác định các câu hỏi thường gặp của đối tượng mục tiêu về chủ đề này
+  expected_output: |
+    Kết quả nghiên cứu chi tiết với:
+      - keywords: Danh sách từ khóa liên quan
+      - competitor_analysis: Phân tích chi tiết về cách đối thủ đang tiếp cận chủ đề này
+      - trending_topics: Các chủ đề liên quan đang thịnh hành
+      - statistics: Các số liệu thống kê và dữ liệu liên quan
+      - faq: Câu hỏi thường gặp từ đối tượng mục tiêu
+      - insights: Các hiểu biết và khám phá ban đầu từ nghiên cứu
+  verbose: True
+research_synthesis_task:
+  description: |
+    Tổng hợp và phân tích thông tin từ dữ liệu nghiên cứu thô:
+      - Ý tưởng đã chọn: {selected_idea[title]}
+      - Từ khóa: {research_data[keywords]}
+      - Phân tích đối thủ: {research_data[competitor_analysis]}
+      - Xu hướng: {research_data[trending_topics]}
+      - Số liệu thống kê: {research_data[statistics]}
+      - Câu hỏi thường gặp: {research_data[faq]}
+      
+    Nhiệm vụ của bạn là:
+      1. Sắp xếp thông tin theo mức độ liên quan và giá trị
+      2. Xác định 3-5 insight chính từ dữ liệu
+      3. Đề xuất góc nhìn độc đáo để tiếp cận chủ đề
+      4. Tổng hợp các yếu tố quan trọng nhất để hướng dẫn việc viết nội dung
+  expected_output: |
+    Báo cáo tổng hợp nghiên cứu với:
+      - key_insights: 3-5 insight chính từ dữ liệu
+      - unique_angle: Đề xuất góc nhìn độc đáo để tiếp cận chủ đề
+      - key_elements: Các yếu tố quan trọng nhất để đưa vào nội dung
+      - recommendations: Đề xuất cụ thể cho quá trình viết nội dung
+  verbose: True
+
+content_writing_task:
+  description: |
+    Viết nội dung dựa trên ý tưởng và kết quả nghiên cứu đã tổng hợp:
+      - Chủ đề: {content_info[topic]}
+      - Mục tiêu truyền thông: {content_info[communication_goal]}
+      - Đối tượng mục tiêu: {content_info[target_audience]}
+      - Phong cách và giọng điệu: {content_info[style_and_tone]}
+      - Ý tưởng: {selected_idea[title]} - {selected_idea[description]}
+      - Góc nhìn độc đáo: {synthesis_data[unique_angle]}
+      - Insight chính: {synthesis_data[key_insights]}
+      - Yếu tố quan trọng: {synthesis_data[key_elements]}
+      - Đề xuất: {synthesis_data[recommendations]}
+
+    Nội dung phải phù hợp với loại {selected_idea[content_type]} và đạt được mục tiêu truyền thông đề ra.
+    Sử dụng giọng điệu và phong cách phù hợp với thương hiệu {content_info[brand_information]}.
+  expected_output: |
+    Bản thảo nội dung bao gồm:
+      - title: Tiêu đề thu hút
+      - body: Nội dung chính của bài viết
+      - hashtags: Danh sách hashtag liên quan
+      - call_to_action: Lời kêu gọi hành động
+  verbose: True
+
+content_review_task:
+  description: |
+    Rà soát và hoàn thiện bản thảo nội dung cuối cùng:
+      - Đánh giá tính nhất quán và liên kết giữa các phần
+      - Kiểm tra chính tả và ngữ pháp
+      - Tối ưu hóa SEO với từ khóa phù hợp
+      - Đảm bảo nội dung đáp ứng mục tiêu {content_info[communication_goal]}
+      - Kiểm tra phong cách và giọng điệu phù hợp với {content_info[style_and_tone]}
+      - Đảm bảo nội dung phản ánh đúng thương hiệu {content_info[brand_information]}
+      - Xác nhận nội dung tích hợp các insight và góc nhìn từ nghiên cứu
+      - Đảm bảo phù hợp với yêu cầu từ người dùng {message}
+      - Đây là bản thảo nội dung mà bạn cần sửa và hoàn thiện:
+        - title: {content_draft[title]}
+        - body: {content_draft[body]}
+        - hashtags: {content_draft[hashtags]}
+        - call_to_action: {content_draft[call_to_action]}
+  expected_output: |
+    Nội dung cuối cùng được định dạng chuyên nghiệp, sẵn sàng để xuất bản hoặc chia sẻ.
+  verbose: True

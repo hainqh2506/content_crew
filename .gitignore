@@ -1,0 +1,6 @@
+.env
+__pycache__/
+.DS_Store
+myagno/src/.env
+myagno/src/__pycache__/
+myagno/writer/__pycache__/
